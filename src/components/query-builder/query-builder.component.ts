@@ -31,8 +31,10 @@ import {
     Component,
     ContentChild,
     ContentChildren,
+    EventEmitter,
     forwardRef,
     Input,
+    Output,
     OnChanges,
     OnInit,
     QueryList,
@@ -112,6 +114,8 @@ export class QueryBuilderComponent implements OnInit, OnChanges, ControlValueAcc
   @Input() parentButtonGroupTemplate: QueryButtonGroupDirective;
   @Input() parentRemoveButtonTemplate: QueryRemoveButtonDirective;
   @Input() parentChangeCallback: () => void;
+
+  @Output() onChanges = new EventEmitter<any>();
 
   @ContentChild(QueryButtonGroupDirective) buttonGroupTemplate: QueryButtonGroupDirective;
   @ContentChild(QuerySwitchGroupDirective) switchGroupTemplate: QuerySwitchGroupDirective;
@@ -375,6 +379,10 @@ export class QueryBuilderComponent implements OnInit, OnChanges, ControlValueAcc
     this.handleDataChange();
   }
 
+  changeValue(fieldValue: string, rule: Rule): void {
+    this.handleDataChange();
+  }
+
   getDefaultValue(defaultValue: any): any {
     switch (typeof defaultValue) {
       case 'function':
@@ -512,5 +520,6 @@ export class QueryBuilderComponent implements OnInit, OnChanges, ControlValueAcc
     if (this.parentChangeCallback) {
       this.parentChangeCallback();
     }
+    this.onChanges.emit(this.data);
   }
 }
