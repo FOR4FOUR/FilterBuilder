@@ -8,10 +8,10 @@
   <ng-template #defaultButtonGroup>
     <div [ngClass]="getClassNames('buttonGroup', 'rightAlign')">
       <button (click)="addRule()" [ngClass]="getClassNames('button')">
-        <i [ngClass]="getClassNames('addIcon')"></i> Rule
+        <i [ngClass]="getClassNames('addIcon')"></i> Условие
       </button>
       <button (click)="addRuleSet()" [ngClass]="getClassNames('button')" *ngIf="allowRuleset">
-        <i [ngClass]="getClassNames('addIcon')"></i> Ruleset
+        <i [ngClass]="getClassNames('addIcon')"></i> Группа условий
       </button>
       <ng-container *ngIf="!!parentData && allowRuleset">
         <button (click)="removeRuleSet()" [ngClass]="getClassNames('button', 'removeButton')">
@@ -29,11 +29,11 @@
     <div [ngClass]="getClassNames('switchGroup', 'transition')" *ngIf="data">
       <div [ngClass]="getClassNames('switchControl')">
         <input type="radio" [ngClass]="getClassNames('switchRadio')" [(ngModel)]="data.condition" value="and" #andOption/>
-        <label (click)="data.condition=andOption.value" [ngClass]="getClassNames('switchLabel')">AND</label>
+        <label (click)="data.condition=andOption.value" [ngClass]="getClassNames('switchLabel')">И</label>
       </div>
       <div [ngClass]="getClassNames('switchControl')">
         <input type="radio" [ngClass]="getClassNames('switchRadio')" [(ngModel)]="data.condition" value="or" #orOption/>
-        <label (click)="data.condition=orOption.value" [ngClass]="getClassNames('switchLabel')">OR</label>
+        <label (click)="data.condition=orOption.value" [ngClass]="getClassNames('switchLabel')">ИЛИ</label>
       </div>
     </div>
   </ng-template>
@@ -129,7 +129,7 @@
           [allowRuleset]="allowRuleset"
           [operatorMap]="operatorMap">
         </query-builder>
-        <p [ngClass]="getClassNames('emptyWarning')" *ngIf="local.invalid">A ruleset cannot be empty. Please add a rule or remove it all together.</p>
+        <p [ngClass]="getClassNames('emptyWarning')" *ngIf="local.invalid">Добавьте хотя бы одно условие, или удалите пустую группу.</p>
       </li>
     </ng-container>
   </ng-container>
